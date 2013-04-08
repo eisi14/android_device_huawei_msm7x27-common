@@ -15,6 +15,12 @@ app/MagicSmokeWallpapers.apk
 app/Galaxy4.apk
 app/PhaseBeam.apk
 
+# Voicedialer/-recorder
+app/VoiceDialer.apk
+app/SpeechRecorder.apk
+
+app/CMUpdater.apk
+
 # Fonts (11.9MB)
 fonts/DroidSansArmenian.ttf
 fonts/DroidSansDevanagari-Regular.ttf
