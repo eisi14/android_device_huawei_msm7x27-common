@@ -121,16 +121,10 @@ BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_wext
 BOARD_WLAN_DEVICE                := bcm4329
 WIFI_BAND                        := 802_11_ABG
 WIFI_DRIVER_MODULE_PATH          := "/system/lib/modules/dhd.ko"
-WIFI_DRIVER_FW_PATH_STA          := "/system/etc/wifi/firmware.bin"
-WIFI_DRIVER_FW_PATH_AP           := "/system/etc/wifi/firmware_apsta.bin"
+WIFI_DRIVER_FW_PATH_STA          := "/system/vendor/firmware/fw_bcm4329.bin"
+WIFI_DRIVER_FW_PATH_AP           := "/system/vendor/firmware/fw_bcm4329_apsta.bin"
 WIFI_DRIVER_MODULE_ARG           := "firmware_path=/system/etc/wifi/firmware.bin nvram_path=/system/etc/wifi/nvram.txt"
 WIFI_DRIVER_MODULE_NAME          := "dhd"
-
-
-## Command line for charging mode
-BOARD_CHARGING_CMDLINE_NAME := "lge.reboot"
-BOARD_CHARGING_CMDLINE_VALUE := "pwroff"
-BOARD_USES_RECOVERY_CHARGEMODE := false
 
 ## OTA script
 TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := device/huawei/msm7x27-common/releasetools/ota_from_target_files
