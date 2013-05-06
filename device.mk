@@ -58,7 +58,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.lockprof.threshold=500 \
     dalvik.vm.dexopt-flags=m=y \
     ro.telephony.call_ring.multiple=false \
-    ro.vold.umsdirtyratio=20
+    ro.vold.umsdirtyratio=20 \
+    ro.config.hw_proximitySensor=true \
+    ro.config.hw_proximity=true \
+    ro.config.hw_GSensorOptimize=true
 
 # Battery life hacks
 PRODUCT_PROPERTY_OVERRIDES += \
