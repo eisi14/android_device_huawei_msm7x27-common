@@ -61,7 +61,12 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.vold.umsdirtyratio=20 \
     ro.config.hw_proximitySensor=true \
     ro.config.hw_proximity=true \
-    ro.config.hw_GSensorOptimize=true
+    ro.config.hw_GSensorOptimize=true \
+    ro.config.notification_sound=CyanPing.ogg \
+    ro.config.alarm_alert=Cesium.ogg \
+    ro.config.ringtone=Aquila.ogg \
+    ro.setupwizard.mode=OPTIONAL \
+    ro.zram.default=26
 
 # Battery life hacks
 PRODUCT_PROPERTY_OVERRIDES += \

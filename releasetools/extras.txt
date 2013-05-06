@@ -53,7 +53,7 @@ tts/lang_pico/it-IT_ta.bin
 # Ringtones (5.85MB)
 media/audio/ringtones/Acheron.ogg
 media/audio/ringtones/Andromeda.ogg
-media/audio/ringtones/Aquila.ogg
+#media/audio/ringtones/Aquila.ogg
 media/audio/ringtones/ArgoNavis.ogg
 media/audio/ringtones/Bongo.ogg
 media/audio/ringtones/Bootes.ogg
@@ -93,7 +93,7 @@ media/audio/ringtones/Zeta.ogg
 
 # Alarms (678KB)
 media/audio/alarms/Barium.ogg
-media/audio/alarms/Cesium.ogg
+# media/audio/alarms/Cesium.ogg
 media/audio/alarms/Copernicium.ogg
 media/audio/alarms/Curium.ogg
 media/audio/alarms/Fermium.ogg
