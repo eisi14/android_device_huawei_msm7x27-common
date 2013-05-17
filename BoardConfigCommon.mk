@@ -1,31 +1,31 @@
-# WARNING: This line must come *before* including the proprietary
-# variant, so that it gets overwritten by the parent (which goes
-# against the traditional rules of inheritance).
-USE_CAMERA_STUB := true
+#
+# Copyright (C) 2012 The Android Open-Source Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+# Use the Qualcomm common folder
+include device/qcom/msm7x27/BoardConfigCommon.mk
 
 ## Camera
-TARGET_DISABLE_ARM_PIE := true
-BOARD_NEEDS_MEMORYHEAPPMEM := true
 BOARD_USE_NASTY_PTHREAD_CREATE_HACK := true
-COMMON_GLOBAL_CFLAGS += -DBINDER_COMPAT
-COMMON_GLOBAL_CFLAGS += -DQCOM_ICS_COMPAT
-BOARD_USES_LEGACY_CAMERA := true
-BOARD_CPU_COLOR_CONVERT := true
+# COMMON_GLOBAL_CFLAGS += -DBINDER_COMPAT
+# BOARD_USES_LEGACY_CAMERA := true
+#BOARD_CPU_COLOR_CONVERT := true
 
 ## Kernel
 TARGET_KERNEL_SOURCE := kernel/huawei/msm7x27
-# Copy LG Kernel Headers here if necessary, DON'T use Adroid auto-generated headers
 TARGET_SPECIFIC_HEADER_PATH := device/huawei/msm7x27-common/include
-BOARD_KERNEL_CMDLINE := mem=471M console=ttyMSM2,115200n8 androidboot.hardware=qcom no_console_suspend
-
-## CPU & Platform
-ARCH_ARM_HAVE_VFP := true
-TARGET_CPU_ABI := armeabi-v6l
-TARGET_CPU_ABI2 := armeabi
-TARGET_ARCH_VARIANT := armv6-vfp
-TARGET_BOARD_PLATFORM := msm7x27
-TARGET_BOARD_PLATFORM_GPU := qcom-adreno200
-COMMON_GLOBAL_CFLAGS += -DTARGET_MSM7x27
 
 ## Browser & WebKit
 JS_ENGINE := v8
@@ -36,12 +36,9 @@ ENABLE_WEBGL := true
 TARGET_FORCE_CPU_UPLOAD := true
 
 ## Boot loader & recovery
-TARGET_NO_BOOTLOADER := true
 TARGET_BOOTANIMATION_PRELOAD := true
-TARGET_BOOTANIMATION_USE_RGB565 := true
 TARGET_BOOTANIMATION_TEXTURE_CACHE := true
 TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
-BOARD_HAS_NO_SELECT_BUTTON := true
 
 ## Partition Sizes
 # Fix this up by examining /proc/mtd on a running device
@@ -58,26 +55,9 @@ BOARD_USERDATAIMAGE_PARTITION_SIZE := 0x0c780000
 BOARD_FLASH_BLOCK_SIZE := 131072
 
 ## Graphics
-# Enable OpenGL Hardware Acceleration
-USE_OPENGL_RENDERER := true
-# Force non usage of VSync
-TARGET_NO_HW_VSYNC := true
-TARGET_USES_GENLOCK := true
-TARGET_LIBAGL_USE_GRALLOC_COPYBITS := true
-BOARD_USE_SKIA_LCDTEXT := true
-BOARD_EGL_CFG := device/huawei/msm7x27-common/configs/egl.cfg
-# Framerate
-COMMON_GLOBAL_CFLAGS += -DREFRESH_RATE=60
-COMMON_GLOBAL_CFLAGS += -DQCOM_NO_SECURE_PLAYBACK
-
-## Qualcomm and Adreno Hardware
-COMMON_GLOBAL_CFLAGS += -DQCOM_HARDWARE
-BOARD_USES_QCOM_HARDWARE := true
-BOARD_USES_QCOM_LIBS := true
-BOARD_ADRENO_DECIDE_TEXTURE_TARGET := true
-COMMON_GLOBAL_CFLAGS += -DMISSING_GRALLOC_BUFFERS
-# Add support for OMX
-COMMON_GLOBAL_CFLAGS += -DQCOM_LEGACY_OMX
+BOARD_EGL_NEEDS_LEGACY_FB := true
+TARGET_DISABLE_TRIPLE_BUFFERING := true
+COMMON_GLOBAL_CFLAGS += -DANCIENT_GL
 
 ## GPS
 # Enable the GPS HAL & AMSS version to use for GPS
@@ -87,17 +67,17 @@ BOARD_USES_QCOM_GPS := true
 #BOARD_VENDOR_QCOM_GPS_LOC_API_AMSS_VERSION := 50000
 
 ## Lights
-TARGET_PROVIDES_LIBLIGHTS := true
+TARGET_PROVIDES_LIBLIGHT := true
+
+## Bluetooth
+BOARD_HAVE_BLUETOOTH_BCM := true
+BOARD_BLUEDROID_VENDOR_CONF := device/lge/msm7x27-common/bluetooth/libbt_lge.txt
 
 ## Audio, Bluetooth & FM Radio
 TARGET_PROVIDES_LIBAUDIO := true
 BOARD_USES_AUDIO_LEGACY := false
-BOARD_COMBO_DEVICE_SUPPORTED := true
-BOARD_HAVE_BLUETOOTH := true
-BOARD_HAVE_BLUETOOTH_BCM := true
-
-BOARD_FM_DEVICE := bcm4325
-BOARD_HAVE_FM_RADIO := true
+#BOARD_FM_DEVICE := bcm4325
+#BOARD_HAVE_FM_RADIO := true
 # Use the second one (QCOM_FM_ENABLED) not the first
 # The first breaks the builds and the second is more
 # recent and is used in the CM code
@@ -108,7 +88,7 @@ BOARD_HAVE_FM_RADIO := true
 BOARD_PROVIDES_LIBRIL := true
 
 ## Mass Storage for Jelly Bean
-TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/platform/usb_mass_storage/lun0/file"
+TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/usb_mass_storage/lun0/file
 BOARD_UMS_LUNFILE := /sys/devices/platform/usb_mass_storage/lun0/file
 
 ## Touch screen compatibility for Jelly Bean
@@ -123,8 +103,9 @@ WIFI_BAND                        := 802_11_ABG
 WIFI_DRIVER_MODULE_PATH          := "/system/lib/modules/dhd.ko"
 WIFI_DRIVER_FW_PATH_STA          := "/system/vendor/firmware/fw_bcm4329.bin"
 WIFI_DRIVER_FW_PATH_AP           := "/system/vendor/firmware/fw_bcm4329_apsta.bin"
-WIFI_DRIVER_MODULE_ARG           := "firmware_path=/system/etc/wifi/firmware.bin nvram_path=/system/etc/wifi/nvram.txt"
+WIFI_DRIVER_MODULE_ARG           := "firmware_path=/system/vendor/firmware/fw_bcm4329.bin nvram_path=/system/etc/wifi/nvram.txt"
 WIFI_DRIVER_MODULE_NAME          := "dhd"
 
 ## OTA script
-TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := device/huawei/msm7x27-common/releasetools/ota_from_target_files
+TARGET_OTA_EXTRAS_FILE := device/huawei/msm7x27-common/releasetools/extras.txt
+

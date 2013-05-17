@@ -1,6 +1,6 @@
+# Most specific first.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 $(call inherit-product, device/common/gps/gps_us_supl.mk)
-$(call inherit-product, frameworks/native/build/phone-hdpi-512-dalvik-heap.mk)
 
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
@@ -21,8 +21,6 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
     frameworks/native/data/etc/android.hardware.sensor.compass.xml:system/etc/permissions/android.hardware.sensor.compass.xml
 
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/releasetools/extras.sh:system/bin/extras.sh
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/initlogo.rle:root/initlogo.rle \
@@ -90,40 +88,22 @@ PRODUCT_PROPERTY_OVERRIDES += \
     hwui.render_dirty_regions=false \
     hwui.disable_vsync=true \
     hwui.print_config=choice \
-    persist.sys.strictmode.visual=false
+    persist.sys.strictmode.visual=0 \
+    persist.sys.strictmode.disable=1
 
-PRODUCT_PROPERTY_OVERRIDES += \
-    media.stagefright.enable-player=true \
-    media.stagefright.enable-meta=false \
-    media.stagefright.enable-scan=false \
-    media.stagefright.enable-http=true \
-    media.stagefright.enable-aac=true \
-    media.stagefright.enable-qcp=true
 
 # Audio
 PRODUCT_PACKAGES += \
     audio_policy.msm7x27 \
-    audio.primary.msm7x27 \
-    audio.a2dp.default \
-    libaudioutils
+    audio.primary.msm7x27
 
 # Display
-PRODUCT_PACKAGES += \
-    libgenlock \
-    libmemalloc \
-    liboverlay \
-    libqdutils \
-    libtilerenderer \
-    libopencorehw \
-    gralloc.msm7x27 \
-    copybit.msm7x27 \
-    hwcomposer.msm7x27
+#PRODUCT_PACKAGES += \
+#    libopencorehw \
+#    hwcomposer.msm7x27
 
 # Media
 PRODUCT_PACKAGES += \
-    libstagefrighthw \
-    libmm-omxcore \
-    libOmxCore \
     libdivxdrmdecrypt
 
 # Misc
@@ -131,7 +111,9 @@ PRODUCT_PACKAGES += \
     com.android.future.usb.accessory \
     gps.default \
     lights.msm7x27 \
-    lgapversion
+    lgapversion \
+    fw_bcm4329.bin \
+    fw_bcm4329_apsta.bin
     
 # Build sim toolkit
 PRODUCT_PACKAGES += \
@@ -140,6 +122,7 @@ PRODUCT_PACKAGES += \
 # Camera
 PRODUCT_PACKAGES += \
     camera.msm7x27 \
+    libcamera
 
 # Filesystem management tools
 PRODUCT_PACKAGES += \
@@ -151,13 +134,17 @@ PRODUCT_COPY_FILES += $(LOCAL_PATH)/prebuilt/init.qcom.bt.sh:system/etc/init.qco
 PRODUCT_PACKAGES += \
     hcitool \
     hciconfig \
+    hciattach \
+    brcm_patchram_plus \
     hwaddrs
 
 # Offmode charging
-PRODUCT_PACKAGES += \
-    charger \
-    charger_res_images
+#PRODUCT_PACKAGES += \
+#    charger \
+#    charger_res_images
 
+# Inherit qcom/msm7x27
+$(call inherit-product, device/qcom/msm7x27/msm7x27.mk)
 
 PRODUCT_TAGS += dalvik.gc.type-precise
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
