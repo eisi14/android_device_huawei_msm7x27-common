@@ -65,7 +65,7 @@ TARGET_NO_HW_VSYNC := true
 TARGET_USES_GENLOCK := true
 TARGET_LIBAGL_USE_GRALLOC_COPYBITS := true
 BOARD_USE_SKIA_LCDTEXT := true
-BOARD_EGL_CFG := device/huawei/msm7x27-common/configs/egl.cfg
+BOARD_EGL_CFG := device/huawei/msm7x27-common/prebuilt/lib/egl/egl.cfg
 # Framerate
 COMMON_GLOBAL_CFLAGS += -DREFRESH_RATE=60
 COMMON_GLOBAL_CFLAGS += -DQCOM_NO_SECURE_PLAYBACK
@@ -123,7 +123,7 @@ WIFI_BAND                        := 802_11_ABG
 WIFI_DRIVER_MODULE_PATH          := "/system/lib/modules/dhd.ko"
 WIFI_DRIVER_FW_PATH_STA          := "/system/vendor/firmware/fw_bcm4329.bin"
 WIFI_DRIVER_FW_PATH_AP           := "/system/vendor/firmware/fw_bcm4329_apsta.bin"
-WIFI_DRIVER_MODULE_ARG           := "firmware_path=/system/etc/wifi/firmware.bin nvram_path=/system/etc/wifi/nvram.txt"
+WIFI_DRIVER_MODULE_ARG           := "firmware_path=/system/vendor/firmware/fw_bcm4329.bin nvram_path=/system/etc/wifi/nvram.txt"
 WIFI_DRIVER_MODULE_NAME          := "dhd"
 
 ## OTA script
