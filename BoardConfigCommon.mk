@@ -71,7 +71,7 @@ TARGET_PROVIDES_LIBLIGHT := true
 
 ## Bluetooth
 BOARD_HAVE_BLUETOOTH_BCM := true
-BOARD_BLUEDROID_VENDOR_CONF := device/lge/msm7x27-common/bluetooth/libbt_lge.txt
+#BOARD_BLUEDROID_VENDOR_CONF := device/huawei/msm7x27-common/bluetooth/libbt.txt
 
 ## Audio, Bluetooth & FM Radio
 TARGET_PROVIDES_LIBAUDIO := true
