@@ -1,0 +1,6 @@
+echo 1 >/sys/block/zram0/reset
+echo 50000000 > /sys/block/zram0/disksize
+mkswap /dev/block/zram0
+swapon /dev/block/zram0
+
+echo 100 > /proc/sys/vm/swappiness

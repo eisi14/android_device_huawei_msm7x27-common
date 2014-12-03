@@ -1,0 +1,44 @@
+# http://source.android.com/devices/tech/storage/index.html
+#<src>			<mnt_point>	<type>	<mnt_flags and options>	<fs_mgr_flags>
+
+cache			/cache		yaffs2	nosuid,nodev		recoveryonly
+userdata		/data		yaffs2	nosuid,nodev		recoveryonly
+system			/system		yaffs2	defaults		recoveryonly
+boot			/boot		mtd	defaults		recoveryonly
+misc			/misc		mtd	defaults		recoveryonly
+recovery		/recovery	mtd	defaults		recoveryonly
+/dev/block/mmcblk0p1    /sdcard         auto    defaults                recoveryonly
+/dev/block/mmcblk0p2    /sd-ext         auto    defaults                recoveryonly
+
+/devices/platform/msm_sdcc.1/mmc_host/mmc0	auto	vfat	defaults	voldmanaged=sdcard0:auto,noemulatedsd
+/dev/block/zram0				none	swap	defaults	zramsize=50331648,swapprio=1
+
+
+#dev_mount sdcard2 /mnt/sdcard auto /devices/platform/goldfish_mmc.0 /devices/platform/msm_sdcc.1/mmc_host/mmc0
+#dev_mount sdcard1 /mnt/sdcard auto /devices/virtual/mtd/mtd7/mtdblock7
+
+
+
+# mount point   fstype      device                  [device2]
+#/boot       	mtd         boot
+#/cache      	yaffs2      cache
+#/data       	yaffs2      userdata
+#/system     	yaffs2      system
+#/misc          mtd         misc
+#/recovery   	mtd         recovery
+#/sdcard     	vfat        /dev/block/mmcblk0p1    /dev/block/mmcblkp0
+#/sd-ext	auto	    /dev/block/mmcblk0p2
+
+
+#dev:    size   erasesize  name
+#mtd0: 00500000 00020000 "boot"
+#mtd1: 00500000 00020000 "recovery"
+#mtd2: 00140000 00020000 "misc"
+#mtd3: 00060000 00020000 "splash"
+#mtd4: 0ba00000 00020000 "system"
+#mtd5: 03f00000 00020000 "cache"
+#mtd6: 0a0a0000 00020000 "userdata"
+#mtd7: 01400000 00020000 "userdata2"
+#mtd8: 01400000 00020000 "cust"
+
+

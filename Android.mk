@@ -1,11 +1,5 @@
-# HACK for prebuilt libril and libcamera
-$(shell mkdir -p $(OUT)/obj/SHARED_LIBRARIES/libril_intermediates)
-$(shell touch $(OUT)/obj/SHARED_LIBRARIES/libril_intermediates/export_includes)
-$(shell mkdir -p $(OUT)/obj/SHARED_LIBRARIES/libcamera_intermediates)
-$(shell touch $(OUT)/obj/SHARED_LIBRARIES/libcamera_intermediates/export_includes)
-
-LOCAL_PATH := $(call my-dir)
-
-ifeq ($(TARGET_BOARD_PLATFORM),msm7x27)
-include $(call all-makefiles-under,$(LOCAL_PATH))
+ifeq (HUAWEI,$(PRODUCT_MANUFACTURER))
+  ifeq ($(TARGET_BOARD_PLATFORM), msm7x27)
+    include $(call all-makefiles-under,$(call my-dir))
+  endif
 endif

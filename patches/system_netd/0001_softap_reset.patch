@@ -1,0 +1,36 @@
+From: eisi14 <eismann14@gmail.com>
+Date: So 7. Sep 23:13:48 CEST 2014
+Subject: Add softap needs restart
+
+---
+diff --git a/Android.mk b/Android.mk
+index 95815de..1a81b03 100644
+--- a/Android.mk
++++ b/Android.mk
+@@ -77,6 +77,10 @@ ifeq ($(WIFI_DRIVER_HAS_LGE_SOFTAP),true)
+   LOCAL_CFLAGS += -DLGE_SOFTAP
+ endif
+ 
++ifeq ($(SOFTAP_NEEDS_RESTART),true)
++  LOCAL_CFLAGS += -DSOFTAP_NEEDS_RESTART
++endif
++
+ include $(BUILD_EXECUTABLE)
+ 
+ include $(CLEAR_VARS)
+diff --git a/SoftapController.cpp b/SoftapController.cpp
+index f0ae73d..7a33838 100644
+--- a/SoftapController.cpp
++++ b/SoftapController.cpp
+@@ -441,6 +441,11 @@ int SoftapController::startDriver(char *iface) {
+ 
+     *mBuf = 0;
+ 
++#ifdef SOFTAP_NEEDS_RESTART
++    stopDriver(iface);
++//ret = setCommand(iface, "STOP");
++#endif
++
+ #ifdef LGE_SOFTAP
+     ret = setCommand(iface, "START-SOFTAP");
+ #else

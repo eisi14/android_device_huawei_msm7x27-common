@@ -1,10 +1,6 @@
-$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
-$(call inherit-product, device/common/gps/gps_us_supl.mk)
-$(call inherit-product, frameworks/native/build/phone-hdpi-512-dalvik-heap.mk)
-
 # configs
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/prebuilt/etc/init.d/01compcache:system/etc/init.d/01compcache
+    $(LOCAL_PATH)/prebuilt/etc/init.d/01zram:system/etc/init.d/01zram
 
 # Touchscreen
 PRODUCT_COPY_FILES += \
@@ -15,55 +11,41 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/usr/idc/surf_keypad.idc:system/usr/idc/surf_keypad.idc \
     $(LOCAL_PATH)/prebuilt/usr/idc/ts_test_input.idc:system/usr/idc/ts_test_input.idc
 
-
-
 PRODUCT_COPY_FILES += \
-    frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
-    frameworks/native/data/etc/android.hardware.camera.xml:system/etc/permissions/android.hardware.camera.xml \
-    frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
-    frameworks/native/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
+    frameworks/native/data/etc/android.hardware.camera.autofocus.xml:system/etc/permissions/android.hardware.camera.autofocus.xml \
     frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
     frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
-    frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
     frameworks/native/data/etc/android.hardware.sensor.compass.xml:system/etc/permissions/android.hardware.sensor.compass.xml \
     frameworks/native/data/etc/android.hardware.sensor.accelerometer.xml:system/etc/permissions/android.hardware.sensor.accelerometer.xml \
-    frameworks/native/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
-    frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
-    frameworks/native/data/etc/android.hardware.touchscreen.multitouch.distinct.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.distinct.xml \
-    frameworks/native/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
-    frameworks/native/data/etc/android.hardware.location.xml:system/etc/permissions/android.hardware.location.xml \
-    frameworks/native/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
-    frameworks/native/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
-    frameworks/native/data/etc/android.hardware.sensor.compass.xml:system/etc/permissions/android.hardware.sensor.compass.xml
+    frameworks/native/data/etc/android.hardware.touchscreen.multitouch.distinct.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.distinct.xml
 
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/releasetools/extras.sh:system/bin/extras.sh
 
-# init
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/root/init.huawei.rc:root/init.huawei.rc \
-    $(LOCAL_PATH)/root/ueventd.huawei.rc:root/ueventd.huawei.rc \
-    $(LOCAL_PATH)/root/init.qcom.rc:root/init.qcom.rc \
-    $(LOCAL_PATH)/root/init.qcom.usb.rc:root/init.qcom.usb.rc \
-    $(LOCAL_PATH)/root/init.qcom.sh:root/init.qcom.sh \
-    $(LOCAL_PATH)/root/ueventd.qcom.rc:root/ueventd.qcom.rc
-
-#PRODUCT_COPY_FILES += \
-#    $(LOCAL_PATH)/root/init.qcom.post_boot.sh:system/etc/init.qcom.post_boot.sh
+# Ramdisk
+PRODUCT_PACKAGES += \
+    init.qcom.rc \
+    init.qcom.usb.rc \
+    ueventd.qcom.rc
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/etc/AudioFilter.csv:system/etc/AudioFilter.csv \
     $(LOCAL_PATH)/prebuilt/etc/AutoVolumeControl.txt:system/etc/AutoVolumeControl.txt \
     $(LOCAL_PATH)/prebuilt/etc/media_profiles.xml:system/etc/media_profiles.xml \
     $(LOCAL_PATH)/prebuilt/etc/media_codecs.xml:system/etc/media_codecs.xml \
-    $(LOCAL_PATH)/prebuilt/etc/vold.fstab:system/etc/vold.fstab \
-    $(LOCAL_PATH)/prebuilt/etc/wifi/nvram.txt:system/etc/wifi/nvram.txt \
-    $(LOCAL_PATH)/prebuilt/etc/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
-    $(LOCAL_PATH)/prebuilt/etc/dhcpcd/dhcpcd.conf:system/etc/dhcpcd/dhcpcd.conf
+    $(LOCAL_PATH)/prebuilt/etc/audio_policy.conf:system/etc/audio_policy.conf
+#     $(LOCAL_PATH)/prebuilt/etc/gps.conf:system/etc/gps.conf
 
+# Wi-Fi releated
+PRODUCT_COPY_FILES += \
+    device/huawei/msm7x27-common/prebuilt/etc/wifi/nvram.txt:system/etc/wifi/nvram.txt \
+    device/huawei/msm7x27-common/prebuilt/etc/dhcpcd/dhcpcd.conf:system/etc/dhcpcd/dhcpcd.conf \
+    device/huawei/msm7x27-common/prebuilt/etc/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf
+
+#    $(LOCAL_PATH)/configs/CHANGELOG-CM.txt:system/etc/CHANGELOG-CM.txt \
 #    $(LOCAL_PATH)/configs/adreno_config.txt:system/etc/adreno_config.txt \
-#    $(LOCAL_PATH)/prebuilt/etc/configs/audio_policy.conf:system/etc/audio_policy.conf \
 
+
+#PRODUCT_PROPERTY_OVERRIDES += \
+#    wifi.ap.interface=wl0.1
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.product.camera=msm7x27 \
@@ -82,16 +64,15 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.config.notification_sound=CyanPing.ogg \
     ro.config.alarm_alert=Cesium.ogg \
     ro.config.ringtone=Aquila.ogg \
-    ro.setupwizard.mode=OPTIONAL \
-    ro.zram.default=26
+    ro.setupwizard.mode=OPTIONAL
 
 # Battery life hacks
 PRODUCT_PROPERTY_OVERRIDES += \
-    # Turn off RIL when not needed
-    ro.ril.disable.power.collapse=1
-    # Better sleep system
-    pm.sleep_mode=1
-    # Scan for WiFi less often to increase batery life
+    # Turn off RIL when not needed \
+    ro.ril.disable.power.collapse=1 \
+    # Better sleep system \
+    pm.sleep_mode=1 \
+    # Scan for WiFi less often to increase batery life \
     wifi.supplicant_scan_interval=180
 
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -117,74 +98,90 @@ PRODUCT_PROPERTY_OVERRIDES += \
     media.stagefright.enable-aac=true \
     media.stagefright.enable-qcp=true
 
-# Live wallpapers
-PRODUCT_COPY_FILES += packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:/system/etc/permissions/android.software.live_wallpaper.xml
-PRODUCT_PACKAGES += \
-    LiveWallpapers \
-    LiveWallpapersPicker \
-    VisualizationWallpapers \
-    librs_jni
-
 # Audio
 PRODUCT_PACKAGES += \
     audio_policy.msm7x27 \
-    audio.primary.msm7x27 \
-    audio.a2dp.default \
-    libaudioutils
+    audio.primary.msm7x27
 
-# Display
+# Graphics & Media
 PRODUCT_PACKAGES += \
-    libgenlock \
-    libmemalloc \
-    liboverlay \
-    libqdutils \
-    libtilerenderer \
-    libopencorehw \
-    gralloc.msm7x27 \
-    copybit.msm7x27 \
-    hwcomposer.msm7x27
-
-# Media
-PRODUCT_PACKAGES += \
-    libstagefrighthw \
-    libmm-omxcore \
-    libOmxCore \
     libdivxdrmdecrypt
 
 # Misc
 PRODUCT_PACKAGES += \
     com.android.future.usb.accessory \
-    gps.default \
     lights.msm7x27 \
-    lgapversion
-    
+    fw_bcm4329.bin \
+    fw_bcm4329_apsta.bin
+
+# GPS
+PRODUCT_PACKAGES += \
+    gps.default \
+    librpc
+
 # Build sim toolkit
 PRODUCT_PACKAGES += \
     Stk
-    
+
 # Camera
 PRODUCT_PACKAGES += \
-    camera.msm7x27 \
+    camera.msm7x27
 
 # Filesystem management tools
 PRODUCT_PACKAGES += \
     make_ext4fs \
     setup_fs
 
-# BT startup
-PRODUCT_COPY_FILES += $(LOCAL_PATH)/prebuilt/init.qcom.bt.sh:system/etc/init.qcom.bt.sh
-PRODUCT_PACKAGES += \
-    hcitool \
-    hciconfig \
-    hwaddrs
+# Bluedroid: rc
+PRODUCT_COPY_FILES += \
+     $(LOCAL_PATH)/bluetooth/init.qcom.bluedroid.rc:root/init.qcom.bluetooth.rc
 
-# Offmode charging
-PRODUCT_PACKAGES += \
-    charger \
-    charger_res_images
+# SELinux - we're not ready for enforcing mode yet
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.boot.selinux=permissive
 
+BOARD_SEPOLICY_DIRS += device/huawei/msm7x27-common/sepolicy
+BOARD_SEPOLICY_UNION += \
+    file_contexts \
+    genfs_contexts
 
+# Development settings
+ADDITIONAL_DEFAULT_PROPERTIES += \
+    ro.debuggable=1 \
+    ro.secure=0 \
+    ro.allow.mock.location=0 \
+    persist.service.adb.enable=1
+
+# set default USB configuration
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    persist.sys.usb.config=mass_storage
+
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    persist.sys.strictmode.visual=0 \
+    persist.sys.strictmode.disable=1
+
+# Inherit qcom/msm7x27
+$(call inherit-product, device/qcom/msm7x27/msm7x27.mk)
+
+# Install/Uninstall google apps
+$(call inherit-product, vendor/google/gapps_armv6_tiny.mk)
+
+# Dalvik
 PRODUCT_TAGS += dalvik.gc.type-precise
-PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
+PRODUCT_PROPERTY_OVERRIDES += \
+    dalvik.vm.checkjni=false \
+    dalvik.vm.dexopt-data-only=1
 
+$(call inherit-product, frameworks/native/build/phone-hdpi-512-dalvik-heap.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
+
+# Common assets
+PRODUCT_AAPT_CONFIG := normal mdpi hdpi
+PRODUCT_LOCALES := en_US en_IN fr_FR it_IT es_ES et_EE de_DE nl_NL cs_CZ \
+    pl_PL ja_JP zh_TW zh_CN zh_HK ru_RU ko_KR nb_NO es_US da_DK el_GR tr_TR \
+    pt_PT pt_BR rm_CH sv_SE bg_BG ca_ES en_GB fi_FI hr_HR hu_HU in_ID iw_IL \
+    lt_LT lv_LV ro_RO sk_SK sl_SI sr_RS uk_UA vi_VN tl_PH ar_EG fa_IR sw_TZ \
+    ms_MY af_ZA zu_ZA en_XA ar_XB fr_CA mn_MN hy_AM az_AZ ka_GE
+
+# huawei msm7x27-common overlays
 DEVICE_PACKAGE_OVERLAYS += device/huawei/msm7x27-common/overlay
